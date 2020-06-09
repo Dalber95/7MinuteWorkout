@@ -1,5 +1,6 @@
 package pl.krusiec.a7minuteworkout
 
+import android.content.Intent
 import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -134,11 +135,9 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                     exerciseAdapter!!.notifyDataSetChanged()
                     setupRestView()
                 } else {
-                    Toast.makeText(
-                        this@ExerciseActivity,
-                        "Congratulations! You have completed the 7 minutes workout.",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    finish()
+                    val intent = Intent(this@ExerciseActivity, FinishActivity::class.java)
+                    startActivity(intent)
                 }
             }
         }.start()
@@ -177,7 +176,8 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     }
 
     private fun setupExerciseStatusRecyclerView() {
-        rvExerciseStatus.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        rvExerciseStatus.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         exerciseAdapter = ExerciseStatusAdapter(exerciseList!!, this)
         rvExerciseStatus.adapter = exerciseAdapter
     }
